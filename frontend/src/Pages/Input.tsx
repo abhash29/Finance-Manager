@@ -8,7 +8,9 @@ const Input = () => {
     const [date, setDate] = useState<string>();
     const navigate = useNavigate();
 
-
+    const handleChart = () => {
+        navigate('/charts');
+    }
     const handleSubmit = async () => {
         if(!amount || !date){
             alert("Please fill the required fields");
@@ -58,7 +60,7 @@ const Input = () => {
             <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 shadow-md transition-all transform hover:scale-105" onClick={handleSubmit}>
                 Submit
             </button>
-            <button className="mt-4 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 shadow-md transition-all transform hover:scale-105">
+            <button className="mt-4 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 shadow-md transition-all transform hover:scale-105" onClick={handleChart} >
                 View Monthly Expenses Bar Chart
             </button>
         </div>
