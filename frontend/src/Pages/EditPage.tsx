@@ -10,6 +10,8 @@ const EditExpense = () => {
     const [amount, setAmount] = useState<number>(0);
     const [description, setDescription] = useState<string>("");
     const [date, setDate] = useState<string>("");
+    const [category, setCategory] = useState<"food" | "living" | "travel">("food");
+
 
     useEffect(() => {
         const fetchExpense = async () => {
@@ -19,6 +21,7 @@ const EditExpense = () => {
                 setAmount(amount);
                 setDescription(description);
                 setDate(date);
+                setCategory(category);
             } catch (err) {
                 console.error(err);
             }
@@ -31,7 +34,8 @@ const EditExpense = () => {
             await axios.put(`http://localhost:3000/expenses/${id}`, {
                 amount,
                 description,
-                date
+                date,
+                category
             });
             navigate("/"); // Redirect back after update
         } catch (err) {
@@ -62,6 +66,16 @@ const EditExpense = () => {
                 onChange={(e) => setDate(e.target.value)}
                 className="p-2 border rounded-lg w-full mt-2"
             />
+            <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value as "food" | "living" | "travel")}
+                className="p-2 border rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow hover:shadow-md"
+            >
+                <option value="">Select Category</option>
+                <option value="food">Food</option>
+                <option value="living">Living</option>
+                <option value="travel">Travel</option>
+            </select>
             <button onClick={handleUpdate} className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg">
                 Update Expense
             </button>

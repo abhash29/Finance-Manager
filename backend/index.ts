@@ -18,7 +18,7 @@ interface IExpense extends Document{
     amount: number;
     description?: string;
     date: Date;
-    category: string;
+    category: "food" | "living" | "travel";
 }
 //Define Schema
 const expenseSchema: Schema<IExpense> = new mongoose.Schema({
@@ -35,7 +35,8 @@ const expenseSchema: Schema<IExpense> = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: false,
+        required: true,
+        enum: ['food', 'living', 'travel'],
     }
 });
 
@@ -50,7 +51,6 @@ app.get('/expenses', async (req, res) => {
     }
 })
 
-//Food, travel, bill, education
 //Add
 app.post('/expenses', async (req, res) => {
     try{

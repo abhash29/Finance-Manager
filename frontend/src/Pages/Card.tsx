@@ -8,7 +8,7 @@ interface Expense {
     amount: number,
     description: string,
     date: string,
-    category: string
+    category: "food" | "living" | "travel";
 }
 const Card = () => {
     const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -18,7 +18,8 @@ const Card = () => {
         const fetchExpenses = async () => {
             try{
                 const response = await axios.get('http://localhost:3000/expenses/');
-                setExpenses(response.data);
+               
+               setExpenses(response.data);
             }
             catch(err){
                 console.error(err);
@@ -52,7 +53,10 @@ const Card = () => {
                     <div className="flex flex-col">
                         <span className="text-lg font-semibold text-gray-800">Amount: ${item.amount}</span>
                         <span className="text-gray-600">Description: {item.description}</span>
-                        <span className="text-gray-500 text-sm">Date: {item.date}</span>
+                        <span className="text-gray-500 text-sm">
+                            Date: {new Date(item.date).toLocaleDateString("en-CA")}
+                        </span>
+                        <span className="text-gray-500 text-sm">Category: {item.category}</span>
                     </div>
                     <div className="flex space-x-2">
                         <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md" onClick={() => handleEdit(item._id)}>Edit</button>
